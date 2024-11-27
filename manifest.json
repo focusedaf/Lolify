@@ -3,7 +3,7 @@
   "name": "Lolify",
   "version": "1.0",
   "description": "A simple browser extension that displays Reddit memes.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab","history"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-large.png"
