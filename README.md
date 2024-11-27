@@ -31,4 +31,4 @@ The Meme Extension enhances your browsing experience by watching memes. It autom
 Feel free to fork this project and submit pull requests! Contributions are welcome, especially if you have ideas to improve meme recommendations or the overall user experience.
 
 ## Acknowledgements
-- Thanks to the creators of the meme APIs (or sources) used in this extension.
+- Thanks to the creators of the meme APIs (https://meme-api.com/gimme) used in this extension.
