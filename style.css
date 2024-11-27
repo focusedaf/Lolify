@@ -1,0 +1,17 @@
+body {
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  width: 400px;
+}
+
+#memeImage {
+  width: 80%;
+  border-radius: 5px;
+}
+
+#memeContainer {
+  display: flex;
+  justify-content: center;
+}
