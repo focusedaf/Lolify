@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Lolify",
   "version": "1.0",
-  "description": "A simple browser extension that displays Reddit memes.",
-  "permissions": ["storage", "activeTab","history"],
+  "description": "A meme extension that also tracks active tab URLs.",
+  "permissions": ["tabs", "activeTab", "storage", "history"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-large.png"
@@ -15,4 +15,5 @@
     "128": "icon-large.png"
   }
 }
+
 
