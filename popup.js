@@ -1,29 +1,42 @@
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Popup DOM fully loaded and parsed.");
+import { getPersonalizedSubreddit, getMemeFromSubreddit } from './recs.js';
 
-  // Fetch active tab details
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const activeTab = tabs[0];
-    console.log("Active tab details:", activeTab);
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("Popup DOM fully loaded and parsed");
 
-    // Fetch a meme from the API
-    fetch("https://meme-api.com/gimme")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched meme data:", data);
+  try {
+    // personalized subreddit recommendation
+    const subreddit = await getPersonalizedSubreddit();
+    console.log("Recommended subreddit:", subreddit);
 
-        // Get the elements
-        const memeImageElement = document.getElementById("memeImage");
-        const memeTitleElement = document.getElementById("memeTitle");
+    // fetch meme
+    const memeData = await getMemeFromSubreddit(subreddit);
+    console.log("Fetched meme data:", memeData);
 
-        if (memeImageElement && memeTitleElement) {
-          // Update the DOM with the fetched meme data
-          memeImageElement.src = data.url;
-          memeTitleElement.innerText = data.title;
-        } else {
-          console.error("Meme display elements not found in DOM.");
-        }
-      })
-      .catch((error) => console.error("Error fetching meme:", error));
-  });
+    // Get the elements
+    const memeImageElement = document.getElementById("memeImage");
+    const memeTitleElement = document.getElementById("memeTitle");
+
+    if (memeImageElement && memeTitleElement) {
+      // Update the DOM with the fetched meme data
+      memeImageElement.src = memeData.url;
+      memeImageElement.alt = memeData.title;
+      memeTitleElement.textContent = memeData.title;
+
+      memeImageElement.onerror = async () => {
+        console.error("Failed to load meme image, fetching a new one");
+        const fallbackMeme = await getMemeFromSubreddit("memes");
+        memeImageElement.src = fallbackMeme.url;
+        memeImageElement.alt = fallbackMeme.title;
+        memeTitleElement.textContent = fallbackMeme.title;
+      };
+    }
+  } catch (error) {
+    console.error("Error in popup:", error);
+    const memeImageElement = document.getElementById("memeImage");
+    const memeTitleElement = document.getElementById("memeTitle");
+    
+    if (memeImageElement && memeTitleElement) {
+      memeTitleElement.textContent = "Error loading meme. Please try again.";
+    }
+  }
 });
