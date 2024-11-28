@@ -129,7 +129,7 @@ async function getPersonalizedSubreddit() {
   }
 }
 
-// Example usage
+
 async function getPersonalizedMeme() {
   try {
     const subreddit = await getPersonalizedSubreddit();
@@ -143,5 +143,5 @@ async function getPersonalizedMeme() {
 
 getPersonalizedMeme();
 
-// Exporting functions
+
 export { getPersonalizedSubreddit, getMemeFromSubreddit };
