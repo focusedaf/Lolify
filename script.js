@@ -1,22 +1,40 @@
-chrome.history.onVisited.addListener((historyItem) => {
-  console.log("Visited URL:", historyItem.url);
+async function updateBrowsingHistory(tab) {
+  try {
+    const result = await chrome.storage.local.get("browsingHistory");
+    const history = result.browsingHistory || [];
 
-  chrome.storage.local.get("browsingHistory", (result) => {
-    let history = result.browsingHistory || [];
-    history.push(historyItem.url);
-    if (history.length > 20) {
-      history.shift();
+    console.log("Current browsing history:", history); // Log current history
+
+    if (tab.url && !history.includes(tab.url)) {
+      history.push(tab.url);
+      await chrome.storage.local.set({ browsingHistory: history });
+      console.log("Updated browsing history:", history); // Log after update
     }
+  } catch (error) {
+    console.error("Error updating browsing history:", error);
+  }
+}
 
-    // Save the updated history back to local storage
-    chrome.storage.local.set({ browsingHistory: history }, () => {
-      console.log("Browsing history updated:", history);
-    });
-  });
+// Listener for active tab changes or updates
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  try {
+    const tab = await chrome.tabs.get(activeInfo.tabId);
+    await updateBrowsingHistory(tab);
+  } catch (error) {
+    console.error("Error getting active tab:", error);
+  }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+// Listener for tab updates (e.g., URL changes)
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.url) {
-    console.log("Tab URL updated:", changeInfo.url);
+    await updateBrowsingHistory(tab);
   }
+});
+
+// Listener for extension installation or update
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.set({ browsingHistory: [] }, () => {
+    console.log("Initialized browsing history.");
+  });
 });
