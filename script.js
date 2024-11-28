@@ -1,22 +1,22 @@
-fetch("https://meme-api.com/gimme")
-  .then((response) => response.json()) //take the response from the fetch call and convert it into a json object
-  .then((data) => {
-    // Get the meme image URL from the response
-    const memeUrl = data.url;
-    const memeTitle = data.title;
+chrome.history.onVisited.addListener((historyItem) => {
+  console.log("Visited URL:", historyItem.url);
 
-    // Set the image 'src' attribute
-    const memeImageElement = document.getElementById("memeImage");
-    if (memeImageElement) {
-      memeImageElement.src = memeUrl;
+  chrome.storage.local.get("browsingHistory", (result) => {
+    let history = result.browsingHistory || [];
+    history.push(historyItem.url);
+    if (history.length > 20) {
+      history.shift();
     }
 
-    // Set the innerHTML for the title
-    const memeTitleElement = document.getElementById("memeTitle");
-    if (memeTitleElement) {
-      memeTitleElement.innerHTML = `<strong>${memeTitle}</strong>`;
-    }
-  })
-  .catch((error) => {
-    console.error("Error fetching meme:", error);
+    // Save the updated history back to local storage
+    chrome.storage.local.set({ browsingHistory: history }, () => {
+      console.log("Browsing history updated:", history);
+    });
   });
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+    console.log("Tab URL updated:", changeInfo.url);
+  }
+});
