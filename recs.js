@@ -1,4 +1,3 @@
-const GEMINI_API_KEY = "AIzaSyAAQGjrpHQJKVWiE1o_QUqdBQmelICBzkg";
 
 /**
  * Summarizes the content of a given URL using Gemini's API
@@ -8,8 +7,7 @@ const GEMINI_API_KEY = "AIzaSyAAQGjrpHQJKVWiE1o_QUqdBQmelICBzkg";
 async function summarizeURLContent(url) {
   try {
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
-        GEMINI_API_KEY,
+      GEMINI_API_ENDPOINT + "?key=" + GEMINI_API_KEY,
       {
         method: "POST",
         headers: {
@@ -74,7 +72,6 @@ async function getMemeFromSubreddit(subreddit) {
  */
 async function getPersonalizedSubreddit() {
   try {
-    // Get the current active tab
     const [tab] = await chrome.tabs.query({
       active: true,
       currentWindow: true,
@@ -84,14 +81,17 @@ async function getPersonalizedSubreddit() {
     }
 
     const currentURL = tab.url;
-
-    // Summarize the current tab's URL
     const summary = await summarizeURLContent(currentURL);
-
-    // Get personalized subreddit based on the URL summary
+    const subredditData = await loadSubredditData();
+    
+    // Prepare context for RAG
+    const context = subredditData.meme_subreddits.map(
+      sr => `${sr.name}: ${sr.description}`
+    ).join('\n');
+    
+    // Use Gemini 1.5 Flash with RAG
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
-        GEMINI_API_KEY,
+      GEMINI_API_ENDPOINT + "?key=" + GEMINI_API_KEY,
       {
         method: "POST",
         headers: {
@@ -102,7 +102,7 @@ async function getPersonalizedSubreddit() {
             {
               parts: [
                 {
-                  text: `Based on this topic: ${summary}, suggest exactly ONE subreddit name (without "r/") that would have relevant memes. ONLY return the subreddit name, no other text or explanation. The response must be a single word.`,
+                  text: `Given this context about available meme subreddits:\n${context}\n\nBased on this topic: ${summary}, suggest exactly ONE subreddit name from the list above that would be most relevant. Only return the subreddit name, no explanation.`,
                 },
               ],
             },

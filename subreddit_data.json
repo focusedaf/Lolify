@@ -1,0 +1,29 @@
+{
+  "meme_subreddits": [
+    {"name": "memes", "description": "Memes! A way of describing cultural information being shared."},
+    {"name": "dankmemes", "description": "High quality memes and humor content."},
+    {"name": "wholesomememes", "description": "Wholesome and uplifting memes that make people feel good."},
+    {"name": "ProgrammerHumor", "description": "Memes and jokes about programming and computer science."},
+    {"name": "me_irl", "description": "Selfies of the soul - relatable memes about daily life."},
+    {"name": "AdviceAnimals", "description": "Classic meme formats and advice animal style memes."},
+    {"name": "starterpacks", "description": "Memes that compile common characteristics of topics."},
+    {"name": "MemeEconomy", "description": "Trading and analyzing meme trends and formats."},
+    {"name": "surrealmemes", "description": "Abstract and surreal meme content."},
+    {"name": "historymemes", "description": "Memes about historical events and figures."},
+    {"name": "funny", "description": "General humor and funny content including memes."},
+    {"name": "PrequelMemes", "description": "Star Wars prequel trilogy memes."},
+    {"name": "BikiniBottomTwitter", "description": "SpongeBob SquarePants memes."},
+    {"name": "AnimeMemes", "description": "Memes related to anime and manga."},
+    {"name": "dndmemes", "description": "Dungeons & Dragons and tabletop gaming memes."},
+    {"name": "ComedyCemetery", "description": "Collection of attempts at humor that fell flat."},
+    {"name": "terriblefacebookmemes", "description": "Memes typically found on Facebook."},
+    {"name": "antimeme", "description": "Memes that are intentionally literal interpretations."},
+    {"name": "bonehurtingjuice", "description": "Memes that misuse templates in creative ways."},
+    {"name": "wholesomememes2", "description": "More wholesome content to brighten your day."},
+    {"name": "MemeTemplatesOfficial", "description": "A collection of meme templates for creators."},
+    {"name": "cringepics", "description": "Memes that are so bad they're good, often cringeworthy."},
+    {"name": "_4chan",  "description":"A subreddit dedicated to 4chan-style humor and memes."},
+    {"name":"Showerthoughts","description":"Insightful thoughts that often lead to humorous conclusions."},
+    {"name":"Unexpected","description":"Surprising twists in memes that catch you off guard."}
+  ]
+}
