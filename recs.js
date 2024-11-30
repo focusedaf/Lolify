@@ -1,3 +1,5 @@
+const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+const GEMINI_API_KEY = 'AIzaSyBbGB-AcSV4OcYxHqaz5iDehzA1sGYNMUY';
 
 /**
  * Summarizes the content of a given URL using Gemini's API
@@ -140,6 +142,17 @@ async function getPersonalizedMeme() {
     console.error("Error getting personalized meme:", error);
   }
 }
+
+async function loadSubredditData() {
+  try {
+    const response = await fetch(chrome.runtime.getURL('subreddit_data.json'));
+    return await response.json();
+  } catch (error) {
+    console.error('Error loading subreddit data:', error);
+    return { meme_subreddits: [] };
+  }
+}
+
 
 getPersonalizedMeme();
 

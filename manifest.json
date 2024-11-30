@@ -3,6 +3,7 @@
   "name": "Lolify",
   "version": "1.1.0",
   "description": "A meme extension that also tracks active tab URLs.",
+
   "permissions": ["tabs", "activeTab", "storage", "history"],
   "host_permissions": [
     "https://generativelanguage.googleapis.com/"
@@ -16,7 +17,11 @@
   },
   "icons": {
     "128": "icon-large.png"
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": ["subreddit_data.json", "config.js"],
+    "matches": ["<all_urls>"]
+  }]
 }
 
 
