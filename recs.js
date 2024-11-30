@@ -1,50 +1,47 @@
 const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
-const GEMINI_API_KEY = 'AIzaSyBbGB-AcSV4OcYxHqaz5iDehzA1sGYNMUY';
+const GEMINI_API_KEY = 'AIzaSyCodUmU64wINsUpqstOtom-yVxf_W3TkEk';
 
 /**
  * Summarizes the content of a given URL using Gemini's API
  * @param {string} url - The URL to summarize
  * @returns {Promise<string>} A summary of the URL or the hostname if summarization fails
  */
-async function summarizeURLContent(url) {
-  try {
-    const response = await fetch(
-      GEMINI_API_ENDPOINT + "?key=" + GEMINI_API_KEY,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `Summarize this URL's content in 3-4 words maximum. If you cannot interpret the URL, return only its title or domain name: ${url}`,
-                },
-              ],
-            },
-          ],
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Gemini API request failed");
-    }
-
-    const data = await response.json();
-    const summary = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-    if (!summary) {
-      throw new Error("Failed to extract valid summary from Gemini API");
-    }
-    return summary;
-  } catch (error) {
-    console.error("Error summarizing URL:", error);
+async function summarizeURLContent(url, retries = 3) {
+  for (let i = 0; i < retries; i++) {
     try {
-      return new URL(url).hostname; // Return the hostname if URL summary fails
-    } catch {
-      return url; // Return the URL as is if both fail
+      const response = await fetch(
+        GEMINI_API_ENDPOINT + "?key=" + GEMINI_API_KEY,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `Summarize this URL's content in 3-4 words maximum. If you cannot interpret the URL, return only its title or domain name: ${url}`,
+                  },
+                ],
+              },
+            ],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        if (i === retries - 1) throw new Error("Gemini API request failed");
+        continue;
+      }
+
+      const data = await response.json();
+      const summary = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+      if (!summary) throw new Error("Failed to extract valid summary from Gemini API");
+      return summary;
+    } catch (error) {
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
     }
   }
 }
