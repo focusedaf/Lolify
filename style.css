@@ -1,6 +1,7 @@
+/* General body and layout */
 body {
-  font-family: "Comic Neue", sans-serif; 
-  background: linear-gradient(135deg, #ffe4e1, #ffecb3); 
+  font-family: "Comic Neue", sans-serif;
+  background: linear-gradient(135deg, #ffb3b3, #c3e6ff);
   margin: 0;
   padding: 30px;
   display: flex;
@@ -8,25 +9,26 @@ body {
   align-items: center;
   height: 100vh;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* App Container */
 #app {
   background-color: #ffffff;
-  border-radius: 25px; 
+  border-radius: 25px;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
   width: 350px;
-  padding: 15px;
+  padding: 20px;
   text-align: center;
-  border: 3px solid #ffab91; 
-  position: relative; 
+  border: 3px solid #ff80ab;
+  position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 #app:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px); 
+  transform: translateY(-5px);
 }
 
 /* Decorative Elements */
@@ -34,11 +36,11 @@ body {
 #app::after {
   content: "";
   position: absolute;
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 182, 193, 0.3); 
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 182, 193, 0.2);
   border-radius: 50%;
-  z-index: -1; 
+  z-index: -1;
 }
 
 #app::before {
@@ -53,21 +55,22 @@ body {
 
 /* Header */
 .header h1 {
-  font-size: 24px; 
-  color: #ff80ab; 
+  font-size: 24px;
+  color: #ff66b2;
   margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .header p {
   font-size: 14px;
-  color: #ce93d8;
+  color: #a5a5a5;
   margin-bottom: 10px;
 }
 
 /* Meme Container */
 #memeContainer {
-  background: #fff9c4;
-  border: 2px dashed #ffcc80; 
+  background: #fff7e6;
+  border: 2px dashed #ffcc99;
   border-radius: 10px;
   padding: 10px;
   margin: 15px 0;
@@ -80,47 +83,89 @@ body {
 }
 
 #memeImage {
-  width: 70%; 
-  max-width: 250px; 
-  height: auto; 
+  width: 70%;
+  max-width: 250px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  object-fit: contain; 
+  object-fit: contain;
 }
 
 #memeTitle {
-  font-size: 16px; 
-  color: #880e4f; 
+  font-size: 16px;
+  color: #d32f2f;
   font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
 }
 
-/* Button */
+/* Button Styling */
 .cute-button {
-  background-color: #ffccbc; 
-  color: #d84315; 
-  font-size: 16px; 
+  background-color: #ffccff;
+  color: #ff66b2;
+  font-size: 18px;
   font-weight: bold;
-  padding: 10px 15px; 
+  padding: 12px 18px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cute-button:hover {
-  background-color: #ffab91;
+  background-color: #ff99cc;
   transform: scale(1.1);
+}
+
+.cute-button:active {
+  transform: scale(0.95);
+}
+
+/* Timer Container */
+#timerDisplay {
+  font-size: 14px;
+  color: #9c27b0;
+  font-weight: bold;
+  margin-top: 15px;
+  background-color: #ffeb3b;
+  border-radius: 15px;
+  padding: 10px 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Play/Pause/Stop Button (Combined) */
+#playPauseStopButton {
+  background-color: #ff80ab;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+#playPauseStopButton:hover {
+  background-color: #ff66b2;
+}
+
+#playPauseStopButton:active {
+  transform: scale(0.95);
 }
 
 /* Footer */
 .footer {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 12px;
   color: #ba68c8;
 }
 
 .footer p {
   margin: 0;
+  text-align: center;
 }
