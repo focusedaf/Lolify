@@ -41,30 +41,81 @@
 //   }
 // });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const memeContainer = document.getElementById("memeContainer");
   const memeImage = document.getElementById("memeImage");
   const memeTitle = document.getElementById("memeTitle");
   const memeButton = document.querySelector(".cute-button");
 
+  
+  let seconds = 0;
+  let timerInterval;
+  let isTimerRunning = false;
+
  
+  function updateTimer() {
+    seconds++; 
+    document.getElementById(
+      "timerDisplay"
+    ).textContent = `Time Spent: ${seconds}s`;
+  }
+
+
+  function startTimer() {
+    timerInterval = setInterval(updateTimer, 1000); 
+    isTimerRunning = true;
+    document.getElementById("playPauseStopButton").textContent =
+      "⏸️ Pause Timer";
+  }
+
+  // Pause the timer
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    isTimerRunning = false;
+    document.getElementById("playPauseStopButton").textContent =
+      "▶️ Resume Timer"; 
+  }
+
+ 
+  function stopTimer() {
+    clearInterval(timerInterval);
+    isTimerRunning = false;
+    seconds = 0; 
+    document.getElementById("timerDisplay").textContent = `Time Spent: 0s`;
+    document.getElementById("playPauseStopButton").textContent =
+      "▶️ Start Timer"; 
+  }
+
+  
+  function toggleTimer() {
+    if (isTimerRunning) {
+      pauseTimer(); 
+    } else if (seconds > 0) {
+      stopTimer(); 
+    } else {
+      startTimer(); 
+    }
+  }
+
   const fetchMeme = async () => {
-    memeTitle.textContent = "Loading..."; 
+    memeTitle.textContent = "Loading...";
     try {
       const response = await fetch("https://meme-api.com/gimme");
       const memeData = await response.json();
-      const img = new Image(); 
+      const img = new Image();
       img.onload = () => {
-        memeImage.src = img.src; 
-        memeTitle.textContent = memeData.title; 
+        memeImage.src = img.src;
+        memeTitle.textContent = memeData.title;
       };
-      img.src = memeData.url; 
+      img.src = memeData.url;
     } catch (error) {
       memeTitle.textContent = "Oops, something went wrong!";
       console.error("Failed to fetch meme:", error);
     }
-  };  
+  };
   memeButton.addEventListener("click", fetchMeme);
+  document
+    .getElementById("playPauseStopButton")
+    .addEventListener("click", toggleTimer);
   fetchMeme();
 });
