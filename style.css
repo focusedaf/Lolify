@@ -19,14 +19,14 @@ body {
   padding: 15px;
   text-align: center;
   border: 3px solid #ffab91; 
-  position: relative;
+  position: relative; 
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 #app:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px);
+  transform: translateY(-5px); 
 }
 
 /* Decorative Elements */
@@ -36,9 +36,9 @@ body {
   position: absolute;
   width: 100px;
   height: 100px;
-  background: rgba(255, 182, 193, 0.3);
+  background: rgba(255, 182, 193, 0.3); 
   border-radius: 50%;
-  z-index: -1;
+  z-index: -1; 
 }
 
 #app::before {
@@ -53,8 +53,8 @@ body {
 
 /* Header */
 .header h1 {
-  font-size: 24px;
-  color: #ff80ab;
+  font-size: 24px; 
+  color: #ff80ab; 
   margin: 0;
 }
 
@@ -66,12 +66,13 @@ body {
 
 /* Meme Container */
 #memeContainer {
-  background: #fff9c4; 
+  background: #fff9c4;
   border: 2px dashed #ffcc80; 
   border-radius: 10px;
   padding: 10px;
   margin: 15px 0;
   transition: transform 0.2s ease;
+  overflow: hidden;
 }
 
 #memeContainer:hover {
@@ -79,14 +80,17 @@ body {
 }
 
 #memeImage {
-  width: 80%;
+  width: 70%; 
+  max-width: 250px; 
+  height: auto; 
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  object-fit: contain; 
 }
 
 #memeTitle {
-  font-size: 16px;
+  font-size: 16px; 
   color: #880e4f; 
   font-weight: bold;
 }
@@ -95,9 +99,9 @@ body {
 .cute-button {
   background-color: #ffccbc; 
   color: #d84315; 
-  font-size: 16px;
+  font-size: 16px; 
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 10px 15px; 
   border: none;
   border-radius: 25px;
   cursor: pointer;
