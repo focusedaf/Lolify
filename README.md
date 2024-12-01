@@ -53,6 +53,8 @@ Lolify is a fun and quirky browser extension designed to enhance your browsing e
 
 Contributions are welcome! If you’d like to suggest improvements or report bugs, please open an issue or submit a pull request.
 
+## Acknowledgements
+- Thanks to the creators of the meme APIs (https://meme-api.com/gimme) used in this extension.
 
 **Have fun, and remember: balance memes with productivity!**
 
